@@ -2,3 +2,9 @@ base:
   project: sleephealthanalysis-project
   random_state: 42
   target_col: Sleep_Disorder
+
+data_source:
+  data_source_path: dataset/Sleephealth.csv
+
+load_data:
+  raw_dataset_csv: data/raw/Sleephealth.csv
