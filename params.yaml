@@ -1,0 +1,4 @@
+base:
+  project: sleephealthanalysis-project
+  random_state: 42
+  target_col: Sleep_Disorder
