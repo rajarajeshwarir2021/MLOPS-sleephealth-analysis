@@ -40,3 +40,23 @@ stages:
       hash: md5
       md5: 08a1a3ec64251fec9acad0bab098fb0e
       size: 382
+  split_data:
+    cmd: python src/split_data.py --config=params.yaml
+    deps:
+    - path: data/raw/Sleephealth.csv
+      hash: md5
+      md5: e4e5086f169512b257a22caa1769f8de
+      size: 12559
+    - path: src/split_data.py
+      hash: md5
+      md5: 526c33a42904913b075ad464572dc43d
+      size: 1174
+    outs:
+    - path: data/processed/test_sleephealth.csv
+      hash: md5
+      md5: 48e10d2e6fcdcda5ce3c40359c948b77
+      size: 2627
+    - path: data/processed/train_sleephealth.csv
+      hash: md5
+      md5: 1d94fd110b7246c5af85001dca759903
+      size: 10073
