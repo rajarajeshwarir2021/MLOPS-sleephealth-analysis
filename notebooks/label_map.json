@@ -1,0 +1,1 @@
+{"Gender": {"Female": 0, "Male": 1}, "Occupation": {"Accountant": 0, "Doctor": 1, "Engineer": 2, "Lawyer": 3, "Manager": 4, "Nurse": 5, "Sales Representative": 6, "Salesperson": 7, "Scientist": 8, "Software Engineer": 9, "Teacher": 10}, "BMI_Category": {"Normal": 0, "Normal Weight": 1, "Obese": 2, "Overweight": 3}, "Sleep_Disorder": {"Insomnia": 0, "Normal": 1, "Sleep Apnea": 2}}

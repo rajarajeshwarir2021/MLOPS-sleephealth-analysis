@@ -8,3 +8,5 @@ data_source:
 
 load_data:
   raw_dataset_csv: data/raw/Sleephealth.csv
+  processed_dataset_csv: data/processed/Sleephealth.csv
+  label_encoded_data: src/label_encoder
