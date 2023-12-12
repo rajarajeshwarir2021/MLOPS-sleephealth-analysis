@@ -14,3 +14,18 @@ split_data:
   train_path: data/processed/train_sleephealth.csv
   test_path: data/processed/test_sleephealth.csv
   test_size: 0.2
+
+estimators:
+  DecisionTreeClassifier:
+    params:
+      criterion: entropy
+      max_depth: 3
+      #criterion: gini
+      #max_depth: 3
+
+model_dir: models
+
+reports:
+  params: reports/params.json
+  scores: reports/scores.json
+  figures: reports/figures

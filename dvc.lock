@@ -60,3 +60,39 @@ stages:
       hash: md5
       md5: 1d94fd110b7246c5af85001dca759903
       size: 10073
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_sleephealth.csv
+      hash: md5
+      md5: 48e10d2e6fcdcda5ce3c40359c948b77
+      size: 2627
+    - path: data/processed/train_sleephealth.csv
+      hash: md5
+      md5: 1d94fd110b7246c5af85001dca759903
+      size: 10073
+    - path: src/train_and_evaluate.py
+      hash: md5
+      md5: f735d9188310b0a17dd3a356b193a5ec
+      size: 3048
+    params:
+      params.yaml:
+        estimators.DecisionTreeClassifier.params.criterion: entropy
+        estimators.DecisionTreeClassifier.params.max_depth: 3
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: aa50b900b17b56ef7227beb1d9efafc8
+      size: 3089
+    - path: reports/figures/confusion_matrix.jpg
+      hash: md5
+      md5: 298fb6122a7676ccfdaf2a09e137d72a
+      size: 17794
+    - path: reports/params.json
+      hash: md5
+      md5: c96cb411f2917290c03c1923f6ec7868
+      size: 53
+    - path: reports/scores.json
+      hash: md5
+      md5: 4b82db2ae3272f0199efcb79784d2eb6
+      size: 26
