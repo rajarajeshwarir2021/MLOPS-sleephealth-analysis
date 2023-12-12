@@ -4,6 +4,11 @@ stages:
     deps:
       - src\get_data.py
       - src\load_data.py
-      - data_given/Sleephealth.csv
+      - dataset/Sleephealth.csv
     outs:
       - data/raw/Sleephealth.csv
+      - label_encoder/Gender_LabelEncoder.joblib
+      - label_encoder/Occupation_LabelEncoder.joblib
+      - label_encoder/BMI_Category_LabelEncoder.joblib
+      - label_encoder/Sleep_Disorder_LabelEncoder.joblib
+      - label_encoder/label_map.json

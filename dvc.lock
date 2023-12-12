@@ -1,0 +1,42 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/load_data.py --config=params.yaml
+    deps:
+    - path: dataset/Sleephealth.csv
+      hash: md5
+      md5: fc2e4b0df4073a4544b725b4540513b6
+      size: 24137
+    - path: src\get_data.py
+      hash: md5
+      md5: 9ee41c50b7343e1bbcb85be4f9326d2c
+      size: 731
+    - path: src\load_data.py
+      hash: md5
+      md5: 6d43847548a6e0cb133f516b8a31b145
+      size: 3329
+    outs:
+    - path: data/raw/Sleephealth.csv
+      hash: md5
+      md5: e4e5086f169512b257a22caa1769f8de
+      size: 12559
+    - path: label_encoder/BMI_Category_LabelEncoder.joblib
+      hash: md5
+      md5: 10c12636442568a50a8140128b1a72f8
+      size: 418
+    - path: label_encoder/Gender_LabelEncoder.joblib
+      hash: md5
+      md5: a6ead92ab84172051f54d9b1672e3df3
+      size: 396
+    - path: label_encoder/Occupation_LabelEncoder.joblib
+      hash: md5
+      md5: 022a41d7bbc87fc6dee38db929c07a90
+      size: 498
+    - path: label_encoder/Sleep_Disorder_LabelEncoder.joblib
+      hash: md5
+      md5: 05d65cbd9ccc58cfb667b0996ec89ff0
+      size: 414
+    - path: label_encoder/label_map.json
+      hash: md5
+      md5: 08a1a3ec64251fec9acad0bab098fb0e
+      size: 382

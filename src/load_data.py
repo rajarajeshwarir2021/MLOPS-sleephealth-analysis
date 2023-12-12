@@ -74,10 +74,6 @@ def load_and_save(config_path):
     # Get the dataframe
     df = get_data(config_path)
 
-    # Store raw dataframe
-    raw_data_path = config["load_data"]["raw_dataset_csv"]
-    df.to_csv(raw_data_path, sep=",", encoding="utf-8", index=False)
-
     # Process the dataframe
     df_processed = process_dataframe(df)
 
@@ -85,8 +81,8 @@ def load_and_save(config_path):
     df_encoded = label_encode_dataframe(config, df_processed)
 
     # Save the processed dataframe
-    processed_data_path = config["load_data"]["processed_dataset_csv"]
-    df_encoded.to_csv(processed_data_path, sep=",", encoding="utf-8", index=False)
+    raw_data_path = config["load_data"]["raw_dataset_csv"]
+    df_encoded.to_csv(raw_data_path, sep=",", encoding="utf-8", index=False)
 
     print(f"Dataframe: {df_encoded}")
     print(f"Columns: {df_encoded.columns}")
