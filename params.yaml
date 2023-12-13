@@ -18,10 +18,10 @@ split_data:
 estimators:
   DecisionTreeClassifier:
     params:
-      criterion: entropy
-      max_depth: 3
-      #criterion: gini
+      #criterion: entropy
       #max_depth: 3
+      criterion: gini
+      max_depth: 5
 
 model_dir: models
 
@@ -29,3 +29,5 @@ reports:
   params: reports/params.json
   scores: reports/scores.json
   figures: reports/figures
+
+webapp_model_dir: prediction_service/model/model.joblib

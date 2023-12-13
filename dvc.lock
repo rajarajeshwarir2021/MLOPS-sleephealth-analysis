@@ -77,22 +77,22 @@ stages:
       size: 3048
     params:
       params.yaml:
-        estimators.DecisionTreeClassifier.params.criterion: entropy
-        estimators.DecisionTreeClassifier.params.max_depth: 3
+        estimators.DecisionTreeClassifier.params.criterion: gini
+        estimators.DecisionTreeClassifier.params.max_depth: 5
     outs:
     - path: models/model.joblib
       hash: md5
-      md5: aa50b900b17b56ef7227beb1d9efafc8
-      size: 3089
+      md5: 8ab23bcf3aaf05addd5e4d66466880a2
+      size: 5185
     - path: reports/figures/confusion_matrix.jpg
       hash: md5
-      md5: 298fb6122a7676ccfdaf2a09e137d72a
-      size: 17794
+      md5: a64f04f2c42bbf70191f3b929889e6ba
+      size: 17797
     - path: reports/params.json
       hash: md5
-      md5: c96cb411f2917290c03c1923f6ec7868
-      size: 53
+      md5: 0ffcb6f7f3cc2527e6c44ba8d741b9e2
+      size: 50
     - path: reports/scores.json
       hash: md5
-      md5: 4b82db2ae3272f0199efcb79784d2eb6
-      size: 26
+      md5: 3ca1b6d719bfbcfa9182394d3b9aaf40
+      size: 40
