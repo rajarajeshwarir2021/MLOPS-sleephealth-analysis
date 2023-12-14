@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}
+Sleep Health
+{% endblock title %}
+
+<!-- Body -->
+{% block body %}
+    <!-- Nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-dark" style="background-color:#848FFF;">
+        <a class="navbar-brand" href="/"> Sleep Health Diagnosis </a>
+    </nav>
+
+    <br />
+
+    <!-- Content -->
+    <div class="container" style="width:650px; height:750px; margin:0 auto; color:white; border-radius:25px;">
+        <form action="/" method="POST">
+
+            <!-- Input block-->
+            <div class="form-group">
+                <label for="gender_data" style="color:#3F3F3F;">Gender</label>
+                <select name="gender_data" id="gender_data">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                </select>
+                <br><br>
+                <label for="age_data" style="color:#3F3F3F;">Age</label>
+                <input name="age_data" id="age_data" type="text">
+                <br><br>
+                <label for="occupation_data" style="color:#3F3F3F;">Occupation</label>
+                <select name="occupation_data" id="occupation_data">
+                <option value="software_eng">Software Engineer</option>
+                <option value="doctor">Doctor</option>
+                <option value="sales_rep">Sales Representative</option>
+                <option value="teacher">Teacher</option>
+                <option value="nurse">Nurse</option>
+                <option value="engineer">Engineer</option>
+                <option value="accountant">Accountant</option>
+                <option value="scientist">Scientist</option>
+                <option value="lawyer">Lawyer</option>
+                <option value="sales_person">Salesperson</option>
+                <option value="manager">Manager</option>
+                </select>
+                <br><br>
+                <br><br>
+                <label for="sleep_data" style="color:#3F3F3F;">Sleep Duration</label>
+                <input name="sleep_data" id="sleep_data" type="text">
+                <br><br>
+                <label for="stress_data" style="color:#3F3F3F;">Stress Level</label>
+                <input name="stress_data" id="stress_data" type="text">
+                <br><br>
+                <label for="bmi_data" style="color:#3F3F3F;">BMI Category</label>
+                <select name="bmi_data" id="bmi_data">
+                <option value="normal">Normal</option>
+                <option value="normal_wt">Normal Weight</option>
+                <option value="over_wt">Overweight</option>
+                <option value="obese">Obese</option>
+                </select>
+                <br><br>
+                <label for="heart_data" style="color:#3F3F3F;">Heart Rate</label>
+                <input name="heart_data" id="heart_data" type="text">
+                <br><br>
+                <label for="steps_data" style="color:#3F3F3F;">Daily Steps</label>
+                <input name="steps_data" id="steps_data" type="text">
+                <br><br>
+                <label for="bp_high_data" style="color:#3F3F3F;">Blood Pressure High</label>
+                <input name="bp_high_data" id="bp_high_data" type="text">
+                <br><br>
+                <label for="bp_low_data" style="color:#3F3F3F;">Blood Pressure Low</label>
+                <input name="bp_low_data" id="bp_low_data" type="text">
+                <br><br>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 predict-button">Predict</button>
+
+            <!-- Display Output block -->
+            <div class="container">
+                <label for="sleep_disorder">
+                    <blockquote class="blockquote">
+                        <p class="mb-2">SLEEP DISORDER</p>
+                    </blockquote>
+                </label>
+                <textarea readonly class="form-control" id="prediction_result" rows="1">{{ response }}</textarea>
+            </div>
+
+        </form>
+    </div>
+{% endblock body %}
+
+

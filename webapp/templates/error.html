@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}
+404
+{% endblock title %}
+
+<!-- Body -->
+{% block body %}
+<div class="container error-message" style="width:650px; height:750px; margin:0 auto; color:white; border-radius:25px;">
+    <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                <h1>404</h1>
+                <h3>Page Not Found</h3>
+                    <div class="error-details">
+                        ERROR: [[ error.error }}
+                    </div>
+                    <div class="error-actions go-home">
+                        <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock body %}
