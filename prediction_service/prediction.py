@@ -55,7 +55,10 @@ def validate_input(dict_request):
 
     def _validate_values(col, val):
         schema = get_schema()
-        if not (schema[col]["min"] <= float(dict_request[col]) <= schema[col]["max"]):
+        if col in ["Gender", "Occupation", "BMI_Category"]:
+            if not val in schema[col].values():
+                raise NotInRange
+        elif not (schema[col]["min"] <= float(dict_request[col]) <= schema[col]["max"]):
             raise NotInRange
 
     for col, val in dict_request.items():
@@ -63,6 +66,20 @@ def validate_input(dict_request):
         _validate_values(col, val)
 
     return True
+
+
+def encode_label(data):
+    """
+    Encode the label data
+    """
+    pass
+
+
+def decode_label(data):
+    """
+    Decode the label data
+    """
+    pass
 
 
 def form_response(dict_request):
