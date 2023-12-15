@@ -71,8 +71,11 @@ def form_response(dict_request):
     """
     if validate_input(dict_request):
         data = dict_request.values()
-        data = [list(map(float, data))]
+        data_array = [data]
+        data_encoded = encode_label(data)
+        data = [list(map(float, data_encoded))]
         response = predict(data)
+        response = decode_label(response)
         return response
 
 
