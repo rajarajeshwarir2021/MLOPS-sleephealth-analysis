@@ -1,12 +1,12 @@
 import os
 import argparse
-import json
-import joblib
+import mlflow
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from urllib.parse import urlparse
 from get_data import read_params
 
 
@@ -37,48 +37,52 @@ def train_and_evaulate(config_path):
     X_test = df_test.drop(columns=[target], axis=1)
     y_test = df_test[target]
 
-    # Train and fit the model
-    model = DecisionTreeClassifier(criterion=p_criterion, max_depth=p_max_depth, random_state=random_state)
-    model.fit(X_train, y_train)
+    # MLFlow configuration
+    mlflow_config = config["mlflow_config"]
+    remote_server_uri = mlflow_config["remote_server_uri"]
+    mlflow.set_tracking_uri(remote_server_uri)
+    mlflow.set_experiment(mlflow_config["experiment_name"])
 
-    # Predict on the test data
-    y_pred = model.predict(X_test)
+    with mlflow.start_run(run_name=mlflow_config["run_name"]) as mlops_run:
 
-    # Evaluate and print the metrics
-    accuracy = accuracy_score(y_test, y_pred)
-    con_matrix = confusion_matrix(y_test, y_pred)
-    print(f"DecisionTreeClassifier model (criterion={p_criterion}, max_depth={p_max_depth}) \nAccuracy: {round(accuracy*100, 2)}%")
+        # Train and fit the model
+        model = DecisionTreeClassifier(criterion=p_criterion, max_depth=p_max_depth, random_state=random_state)
+        model.fit(X_train, y_train)
 
-    # Generate report files
-    scores_file = config["reports"]["scores"]
-    params_file = config["reports"]["params"]
-    confusion_matrix_file = config["reports"]["figures"]
+        # Predict on the test data
+        y_pred = model.predict(X_test)
 
-    with open(scores_file, "w") as f:
-        scores = {
-            "Accuracy": accuracy,
-        }
-        json.dump(scores, f, indent=4)
+        # Evaluate and print the metrics
+        accuracy = accuracy_score(y_test, y_pred)
+        conf_matrix = confusion_matrix(y_test, y_pred)
 
-    with open(params_file, "w") as f:
-        params = {
-            "criterion": p_criterion,
-            "max_depth": p_max_depth,
-        }
-        json.dump(params, f, indent=4)
+        # Log parameters and metrics
+        mlflow.log_param("criterion", p_criterion)
+        mlflow.log_param("max_depth", p_max_depth)
 
-    fig = plt.figure()
-    plt.matshow(con_matrix)
-    plt.title('Confusion Matrix: Sleep Health')
-    plt.colorbar()
-    plt.ylabel('True Label')
-    plt.xlabel('Predicated Label')
-    plt.savefig(os.path.join(confusion_matrix_file, 'confusion_matrix.jpg'))
+        mlflow.log_metric("Accuracy", accuracy)
+        mlflow.log_metric("true_positive", conf_matrix[0][0])
+        mlflow.log_metric("true_negative", conf_matrix[1][1])
+        mlflow.log_metric("false_positive", conf_matrix[0][1])
+        mlflow.log_metric("false_negative", conf_matrix[1][0])
 
-    # Save the model
-    os.makedirs(model_path, exist_ok=True)
-    model_file_path = os.path.join(model_path, "model.joblib")
-    joblib.dump(model, model_file_path)
+        # Log the confusion matrix
+        fig = plt.figure()
+        plt.matshow(conf_matrix)
+        plt.title('Confusion Matrix: Sleep Health')
+        plt.colorbar()
+        plt.ylabel('True Label')
+        plt.xlabel('Predicated Label')
+        plt.savefig('confusion_matrix.png')
+        plt.close(fig)
+        mlflow.log_artifact('confusion_matrix.png')
+
+        # Save the model
+        tracking_url_type_store = urlparse(mlflow.get_artifact_uri()).scheme
+        if tracking_url_type_store != "file":
+            mlflow.sklearn.log_model(model, "model", registered_model_name=mlflow_config["registered_model_name"])
+        else:
+            mlflow.sklearn.log_model(model, "model", registered_model_name=mlflow_config["registered_model_name"])
 
 
 if __name__ == '__main__':
