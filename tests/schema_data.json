@@ -1,0 +1,53 @@
+{
+    "Gender": {
+        "1": "Male",
+        "2": "Female"
+    },
+    "Age": {
+        "min": 27,
+        "max": 59
+    },
+    "Occupation": {
+        "1": "Software Engineer",
+        "2": "Doctor",
+        "3": "Sales Representative",
+        "4": "Teacher",
+        "5": "Nurse",
+        "6": "Engineer",
+        "7": "Accountant",
+        "8": "Scientist",
+        "9": "Lawyer",
+        "10": "Salesperson",
+        "11": "Manager"
+    },
+    "Sleep_Duration": {
+        "min": 5.8,
+        "max": 8.5
+    },
+    "Stress_Level": {
+        "min": 3,
+        "max": 8
+    },
+    "BMI_Category": {
+        "1": "Normal",
+        "2": "Normal Weight",
+        "3": "Overweight",
+        "4": "Obese"
+    },
+    "Heart_Rate": {
+        "min": 65,
+        "max": 86
+    },
+    "Daily_Steps": {
+        "min": 3000,
+        "max": 10000
+    },
+    "Blood_Pressure_High": {
+        "min": 115,
+        "max": 142
+    },
+    "Blood_Pressure_Low": {
+        "min": 75,
+        "max": 95
+    }
+}
