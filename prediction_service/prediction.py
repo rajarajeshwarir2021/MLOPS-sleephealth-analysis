@@ -3,9 +3,11 @@ import json
 import yaml
 import joblib
 import numpy as np
+import pandas as pd
 
 params_path = "params.yaml"
 schema_path = os.path.join("prediction_service", "schema_data.json")
+
 
 class NotInRange(Exception):
     """
@@ -68,18 +70,52 @@ def validate_input(dict_request):
     return True
 
 
+def create_dataframe(data):
+    """
+    Create a data frame from the data
+    """
+    data = np.array([list(data.values())])
+    headers = ['Gender', 'Age', 'Occupation', 'Sleep_Duration', 'Stress_Level', 'BMI_Category', 'Heart_Rate',
+               'Daily_Steps', 'Blood_Pressure_High', 'Blood_Pressure_Low']
+    df = pd.DataFrame(data, columns=headers)
+
+    return df
+
+
+def get_label_encoder(item):
+    """
+    Get the label encoder
+    """
+    config = read_params(params_path)
+    encoder_path = config["label_encoder"][item.lower()]
+    # Load the encoder
+    encoder = joblib.load(encoder_path)
+
+    return encoder
+
+
 def encode_label(data):
     """
     Encode the label data
     """
-    pass
+    df = create_dataframe(data)
 
+    for item in ["Gender", "Occupation", "BMI_Category"]:
+        label_encoder = get_label_encoder(item)
+        df[item] = label_encoder.transform(df[item])
+
+    df = df.values.tolist()[0]
+
+    return df
 
 def decode_label(data):
     """
     Decode the label data
     """
-    pass
+    label_encoder = get_label_encoder("sleep_disorder")
+    label = label_encoder.inverse_transform(data)[0]
+
+    return label
 
 
 def form_response(dict_request):
@@ -87,12 +123,10 @@ def form_response(dict_request):
     Predict the target for the given parameters in dictionary format
     """
     if validate_input(dict_request):
-        data = dict_request.values()
-        data_array = [data]
-        data_encoded = encode_label(data)
+        data_encoded = encode_label(dict_request)
         data = [list(map(float, data_encoded))]
-        response = predict(data)
-        response = decode_label(response)
+        encoded_response = predict(data)
+        response = decode_label(encoded_response)
         return response
 
 
@@ -102,8 +136,10 @@ def api_response(dict_request):
     """
     try:
         if validate_input(dict_request):
-            data = np.array([list(dict_request.values())])
-            response = predict(data=data)
+            data_encoded = encode_label(dict_request)
+            data = [list(map(float, data_encoded))]
+            encoded_response = predict(data=data)
+            response = decode_label(encoded_response)
             response = {"response": response}
             return response
     except NotInRange as e:
@@ -126,10 +162,9 @@ def predict(data):
     config = read_params(params_path)
     model_dir_path = config['webapp_model_dir']
     model = joblib.load(model_dir_path)
-    prediction = [model.predict(data)][0][0]
-    print(prediction)
+    prediction = [model.predict(data)][0]
     try:
-        if 0 <= prediction <= 10:
+        if 0 <= prediction <= 2:
             return prediction
         else:
             raise NotInRange

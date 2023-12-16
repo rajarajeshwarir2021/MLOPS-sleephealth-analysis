@@ -31,3 +31,9 @@ reports:
   figures: reports/figures
 
 webapp_model_dir: prediction_service/model/model.joblib
+
+label_encoder:
+  gender: label_encoder/Gender_LabelEncoder.joblib
+  occupation: label_encoder/Occupation_LabelEncoder.joblib
+  bmi_category: label_encoder/BMI_Category_LabelEncoder.joblib
+  sleep_disorder: label_encoder/Sleep_Disorder_LabelEncoder.joblib
