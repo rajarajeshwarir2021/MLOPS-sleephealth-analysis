@@ -37,3 +37,10 @@ label_encoder:
   occupation: label_encoder/Occupation_LabelEncoder.joblib
   bmi_category: label_encoder/BMI_Category_LabelEncoder.joblib
   sleep_disorder: label_encoder/Sleep_Disorder_LabelEncoder.joblib
+
+mlflow_config:
+  artifacts_dir: artifacts
+  experiment_name: DecisionTree classification
+  run_name: mlops_sleepanalysis
+  registered_model_name: DecisionTreeSleepAnalysisModel
+  remote_server_uri: http://127.0.0.1:1234
