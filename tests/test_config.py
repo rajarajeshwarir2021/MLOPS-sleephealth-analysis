@@ -1,8 +1,4 @@
-import os
-import json
-import joblib
 import pytest
-import logging
 import prediction_service
 from prediction_service.prediction import form_response, api_response
 
