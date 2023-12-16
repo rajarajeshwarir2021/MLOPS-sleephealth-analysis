@@ -31,11 +31,16 @@ stages:
     params:
       - estimators.DecisionTreeClassifier.params.criterion
       - estimators.DecisionTreeClassifier.params.max_depth
-    metrics:
-      - reports/scores.json:
-          cache: false
-      - reports/params.json:
-          cache: false
-    outs:
-      - models/model.joblib
-      - reports/figures/confusion_matrix.jpg
+#    metrics:
+#      - reports/scores.json:
+#          cache: false
+#      - reports/params.json:
+#          cache: false
+#    outs:
+#      - models/model.joblib
+#      - reports/figures/confusion_matrix.jpg
+
+  log_production_model:
+    cmd: python src/log_production_model.py --config=params.yaml
+    deps:
+      - src/log_production_model.py

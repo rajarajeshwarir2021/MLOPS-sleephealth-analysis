@@ -73,26 +73,16 @@ stages:
       size: 10073
     - path: src/train_and_evaluate.py
       hash: md5
-      md5: f735d9188310b0a17dd3a356b193a5ec
-      size: 3048
+      md5: d61f20df7974633b4b0a25be06bef09e
+      size: 3554
     params:
       params.yaml:
         estimators.DecisionTreeClassifier.params.criterion: gini
         estimators.DecisionTreeClassifier.params.max_depth: 5
-    outs:
-    - path: models/model.joblib
+  log_production_model:
+    cmd: python src/log_production_model.py --config=params.yaml
+    deps:
+    - path: src/log_production_model.py
       hash: md5
-      md5: 8ab23bcf3aaf05addd5e4d66466880a2
-      size: 5185
-    - path: reports/figures/confusion_matrix.jpg
-      hash: md5
-      md5: a64f04f2c42bbf70191f3b929889e6ba
-      size: 17797
-    - path: reports/params.json
-      hash: md5
-      md5: 0ffcb6f7f3cc2527e6c44ba8d741b9e2
-      size: 50
-    - path: reports/scores.json
-      hash: md5
-      md5: 3ca1b6d719bfbcfa9182394d3b9aaf40
-      size: 40
+      md5: 18aeacab3dfc539091399af945311076
+      size: 1904
