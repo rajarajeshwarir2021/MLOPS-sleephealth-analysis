@@ -1,6 +1,3 @@
-import mlflow
-print(mlflow.__version__)
-
-
-import pydantic
-print(pydantic.__version__)
+import os.path
+f = os.path.join(os.path.split(os.path.dirname(__file__))[0] + '/prediction_service/model/model.joblib')
+print(f)
