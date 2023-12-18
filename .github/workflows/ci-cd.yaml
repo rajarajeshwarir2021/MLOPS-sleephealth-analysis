@@ -37,3 +37,29 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v
+
+    - name: Deploy to Render
+      env:
+        deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      if: github.ref == 'refs/heads/main-mlflow' && job.status == 'success'
+      run: |
+          curl "$deploy_url"
+
+#    - name: Deploy to Render
+#      env:
+#        RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+#        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+#        uses: johnbeynon/render-deploy-action@v0.0.8
+#        with:
+#          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+#          api-key: ${{ secrets.RENDER_API_KEY }}
+#          wait-for-success: true
+
+#    - name: Deploy to Heroku
+#      env:
+#        HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+#        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+#      if: github.ref == 'refs/heads/main-mlflow' && job.status == 'success'
+#      run: |
+#        git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
+#        git push heroku HEAD:main -f

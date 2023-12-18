@@ -3,6 +3,8 @@ mlops_sleephealth_main
 
 This is an MLOPS based project for predicting the sleep health of a person based on their habits and various other factors.
 
+APP LINK: https://production-sleep-health-diagnosis.onrender.com
+
 Project Organization
 ------------
 
