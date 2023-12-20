@@ -1,7 +1,9 @@
 mlops_sleephealth_main
 ==============================
 
-This is an MLOPS based project for predicting the sleep health of a person based on their habits and various other factors.
+This is an MLOPS based project for predicting the sleep health of a person based on their habits and various other factors. The user inputs the Gender, Age, Occupation, Sleep Duration, Stress Level, BMI Category, Heart Rate, Daily Steps, Blood Pressure Low and Blood Pressure High, based on the given input a prediction is made and the output is displayed. 
+
+Click the link below to try it out!
 
 APP LINK: https://production-sleep-health-diagnosis.onrender.com
 
