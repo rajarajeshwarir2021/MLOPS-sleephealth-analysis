@@ -36,11 +36,11 @@ def read_params(config_path=params_path):
     return config
 
 
-def get_schema(schema_path=schema_path):
+def get_schema(data_schema_path=schema_path):
     """
     Get the schema
     """
-    with open(schema_path, 'r') as f:
+    with open(data_schema_path, 'r') as f:
         schema = json.load(f)
     return schema
 
@@ -58,14 +58,14 @@ def validate_input(dict_request):
     def _validate_values(col, val):
         schema = get_schema()
         if col in ["Gender", "Occupation", "BMI_Category"]:
-            if not val in schema[col].values():
+            if val not in schema[col].values():
                 raise NotInRange
         elif not (schema[col]["min"] <= float(dict_request[col]) <= schema[col]["max"]):
             raise NotInRange
 
-    for col, val in dict_request.items():
-        _validate_cols(col)
-        _validate_values(col, val)
+    for column, value in dict_request.items():
+        _validate_cols(column)
+        _validate_values(column, value)
 
     return True
 
@@ -144,11 +144,11 @@ def api_response(dict_request):
             response = {"response": response}
             return response
     except NotInRange as e:
-        response = {"the_exected_range": get_schema(), "response": str(e) }
+        response = {"the_exected_range": get_schema(), "response": str(e)}
         return response
 
     except NotInFeatureColumn as e:
-        response = {"the_exected_cols": get_schema().keys(), "response": str(e) }
+        response = {"the_exected_cols": get_schema().keys(), "response": str(e)}
         return response
 
     except Exception as e:

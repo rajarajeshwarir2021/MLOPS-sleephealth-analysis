@@ -50,26 +50,37 @@ TARGET_VALUES = ["Normal", "Sleep Apnea", "Insomnia"]
 TARGET_RESPONSE = {'response': 'Normal'}
 
 
-def test_form_response_correct_range(data=input_data["correct_range"]):
+def test_form_response_correct_range(data=None):
+    if data is None:
+        data = input_data["correct_range"]
     res = form_response(data)
     assert res in TARGET_VALUES
 
 
-def test_api_response_correct_range(data=input_data["correct_range"]):
+def test_api_response_correct_range(data=None):
+    if data is None:
+        data = input_data["correct_range"]
     res = api_response(data)
     assert res == TARGET_RESPONSE
 
 
-def test_form_response_incorrect_range(data=input_data["incorrect_range"]):
+def test_form_response_incorrect_range(data=None):
+    if data is None:
+        data = input_data["incorrect_range"]
     with pytest.raises(prediction_service.prediction.NotInRange):
         res = form_response(data)
+        assert res == prediction_service.prediction.NotInRange().message
 
 
-def test_api_response_incorrect_range(data=input_data["incorrect_range"]):
+def test_api_response_incorrect_range(data=None):
+    if data is None:
+        data = input_data["incorrect_range"]
     res = api_response(data)
     assert res["response"] == prediction_service.prediction.NotInRange().message
 
 
-def test_api_response_incorrect_col(data=input_data["incorrect_column"]):
+def test_api_response_incorrect_col(data=None):
+    if data is None:
+        data = input_data["incorrect_column"]
     res = api_response(data)
     assert res["response"] == prediction_service.prediction.NotInFeatureColumn().message

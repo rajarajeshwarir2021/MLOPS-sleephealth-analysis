@@ -11,8 +11,8 @@ load_data:
   label_encoded_data: label_encoder
 
 split_data:
-  train_path: data/processed/train_sleephealth.csv
-  test_path: data/processed/test_sleephealth.csv
+  train_path: data/processed/train_sleep_health.csv
+  test_path: data/processed/test_sleep_health.csv
   test_size: 0.2
 
 estimators:

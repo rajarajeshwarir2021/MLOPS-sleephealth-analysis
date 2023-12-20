@@ -6,7 +6,8 @@ from get_data import read_params
 
 def split_and_save(config_path):
     """
-    Split the raw data into train and test sets, and save the train and test sets to the data/processed folder for further processing
+    Split the raw data into train and test sets, and save the train and test sets to the data/processed folder for
+    further processing
     """
     config = read_params(config_path)
     random_state = config["base"]["random_state"]

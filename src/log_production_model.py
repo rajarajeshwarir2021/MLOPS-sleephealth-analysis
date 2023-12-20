@@ -19,7 +19,7 @@ def log_production_model(config_path):
     model_name = mlflow_config["registered_model_name"]
     mlflow.set_tracking_uri(remote_server_uri)
 
-    runs = mlflow.search_runs(experiment_ids="1")
+    runs = mlflow.search_runs(experiment_ids=["1"])
     lowest = runs["metrics.Accuracy"].sort_values(ascending=True)[0]
     lowest_run_id = runs[runs["metrics.Accuracy"] == lowest]["run_id"][0]
     logged_model = ""
@@ -32,14 +32,11 @@ def log_production_model(config_path):
             current_version = mv["version"]
             logged_model = mv["source"]
             pprint(mv, indent=4)
-            status = client.transition_model_version_stage(name=model_name, version=current_version, stage="Production")
-            print(current_version)
-            print(logged_model)
+            client.transition_model_version_stage(name=model_name, version=current_version, stage="Production")
 
         else:
             current_version = mv["version"]
             client.transition_model_version_stage(name=model_name, version=current_version, stage="Staging")
-            print(current_version)
 
     loaded_model = mlflow.pyfunc.load_model(logged_model)
     model_path = os.path.join(os.path.split(os.path.dirname(__file__))[0], config["webapp_model_dir"])

@@ -231,7 +231,8 @@ man_pages = [
 texinfo_documents = [
     ('index', 'mlops_sleephealth_main', u'mlops_sleephealth_main Documentation',
      u"raji", 'mlops_sleephealth_main',
-     'This is an MLOPS based project for predicting the sleep health of a person based on their habits and various other factors.', 'Miscellaneous'),
+     'This is an MLOPS based project for predicting the sleep health of a person based on their habits and various '
+     'other factors.', 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

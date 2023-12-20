@@ -11,7 +11,8 @@ from get_data import read_params
 
 def train_and_evaulate(config_path):
     """
-    Load the train and test data from the data/processed folder, Train the model on the train data, and Save the model metrics and parameters
+    Load the train and test data from the data/processed folder, Train the model on the train data, and Save the model
+    metrics and parameters
     """
     config = read_params(config_path)
 
@@ -20,7 +21,6 @@ def train_and_evaulate(config_path):
 
     train_data_path = config["split_data"]["train_path"]
     test_data_path = config["split_data"]["test_path"]
-    model_path = config["model_dir"]
 
     p_criterion = config["estimators"]["DecisionTreeClassifier"]["params"]["criterion"]
     p_max_depth = config["estimators"]["DecisionTreeClassifier"]["params"]["max_depth"]
@@ -29,11 +29,11 @@ def train_and_evaulate(config_path):
     df_test = pd.read_csv(test_data_path, sep=",", encoding="utf-8")
 
     # Formulate the train dataset
-    X_train = df_train.drop(columns=[target], axis=1)
+    x_train = df_train.drop(columns=[target], axis=1)
     y_train = df_train[target]
 
     # Formulate the test dataset
-    X_test = df_test.drop(columns=[target], axis=1)
+    x_test = df_test.drop(columns=[target], axis=1)
     y_test = df_test[target]
 
     # MLFlow configuration
@@ -46,10 +46,10 @@ def train_and_evaulate(config_path):
 
         # Train and fit the model
         model = DecisionTreeClassifier(criterion=p_criterion, max_depth=p_max_depth, random_state=random_state)
-        model.fit(X_train, y_train)
+        model.fit(x_train, y_train)
 
         # Predict on the test data
-        y_pred = model.predict(X_test)
+        y_pred = model.predict(x_test)
 
         # Evaluate and print the metrics
         accuracy = accuracy_score(y_test, y_pred)
