@@ -108,6 +108,7 @@ def encode_label(data):
 
     return df
 
+
 def decode_label(data):
     """
     Decode the label data

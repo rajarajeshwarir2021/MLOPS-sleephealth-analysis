@@ -1,4 +1,3 @@
-import os
 import argparse
 import mlflow
 import pandas as pd
